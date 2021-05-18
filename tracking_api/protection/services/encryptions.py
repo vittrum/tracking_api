@@ -4,7 +4,7 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 
 
-def generate_private_key() -> str:
+def generate_private_key():
     private_key = rsa.generate_private_key(
         public_exponent=65537,
         key_size=2048,
@@ -13,7 +13,7 @@ def generate_private_key() -> str:
     return private_key
 
 
-def sign_document(content: str, private_key: str) -> str:
+def sign_document(content, private_key):
     signature = private_key.sign(
         content,
         padding.PSS(
@@ -22,13 +22,5 @@ def sign_document(content: str, private_key: str) -> str:
         ),
         hashes.SHA256()
     )
-
-
-def document_to_data(document: Document):
-    pass
-
-
-def data_to_document(data):
-    pass
-
+    return signature
 

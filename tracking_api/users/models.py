@@ -2,17 +2,13 @@ from django.db import models
 
 
 # Create your models here.
-
-class User(models.Model):
-    name = models.CharField(max_length=50)
-    lastname = models.CharField(max_length=50)
-    status = models.IntegerField()  # add choices
-    # TODO: uncomment in prod
-    # contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
-    notification_settings = models.ForeignKey(NotificationSettings, on_delete=models.CASCADE)
+class Contact(models.Model):
+    email = models.CharField(max_length=256, blank=True, null=True)
+    phone = models.CharField(max_length=11, blank=True, null=True)
+    adress = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
-        abstract = True
+        db_table = 'contacts'
 
 
 class NotificationSettings(models.Model):
@@ -25,6 +21,18 @@ class NotificationSettings(models.Model):
         db_table = 'notification_settings'
 
 
+class User(models.Model):
+    name = models.CharField(max_length=50)
+    lastname = models.CharField(max_length=50)
+    status = models.IntegerField()  # add choices
+    # TODO: uncomment in prod
+    contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
+    notification_settings = models.ForeignKey(NotificationSettings, on_delete=models.CASCADE)
+
+    class Meta:
+        abstract = True
+
+
 class Qualification(models.Model):
     licence = models.CharField(max_length=100, blank=True, null=True)
     profession = models.CharField(max_length=100)
@@ -32,15 +40,6 @@ class Qualification(models.Model):
 
     class Meta:
         db_table = 'qualifications'
-
-
-class Contact(models.Model):
-    email = models.CharField(max_length=256, blank=True, null=True)
-    phone = models.CharField(max_length=11, blank=True, null=True)
-    adress = models.CharField(max_length=100, blank=True, null=True)
-
-    class Meta:
-        db_table = 'contacts'
 
 
 class Client(User):

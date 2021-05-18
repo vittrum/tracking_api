@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-from tracking_api.users.models import Client
+from users.models import Client, User, Worker
 
 
 class Document(models.Model):
@@ -17,7 +17,7 @@ class Document(models.Model):
 
 class Task(models.Model):
     name = models.CharField(max_length=100)
-    assignee = models.ForeignKey(User, on_delete=models.CASCADE)
+    assignee = models.ForeignKey(Worker, on_delete=models.CASCADE)
     state = models.CharField(max_length=50)
 
     class Meta:

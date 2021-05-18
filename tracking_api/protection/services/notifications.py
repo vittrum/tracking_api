@@ -1,3 +1,9 @@
+from typing import Union
+
+from protection.models import Task
+from users.models import Client, Worker
+
+
 def send_email(email: str, text: str) -> None:
     print(f'email: {email} text: {text}')
 
@@ -14,7 +20,7 @@ def send_call(phone: str, text: str) -> None:
     print(f'phone: {phone} text: {text}')
 
 
-def send_notification(recipient: User, task: Task) -> None:
+def send_notification(recipient: Union[Worker, Client], task: Task) -> None:
     settings = recipient.notification_settings
     content = task.name
     contacts = recipient.contact
