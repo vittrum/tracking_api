@@ -7,7 +7,7 @@ from users.models import Worker
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = '__all__'
+        fields = []
 
 
 class TaskStatusSerializer(serializers.ModelSerializer):
